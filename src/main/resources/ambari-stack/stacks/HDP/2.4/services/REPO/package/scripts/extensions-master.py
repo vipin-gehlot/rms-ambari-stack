@@ -31,7 +31,7 @@ class Master(Script):
         File("/" + app_package_bundle, content=DownloadSource(format("{external_repository_url}/") + app_package_bundle,
                                                               redownload_files=True), mode=0644)
 
-        Execute(format('tar -xvf /' + app_package_bundle + ' -C /'))
+        Execute(format('tar -xzvf /' + app_package_bundle + ' -C /'))
 
     def restart_ambari_server(self, env):
         #This operation would be marked timed out due to sync restart of ambari-server which is fine.Async restart has pid related issues.

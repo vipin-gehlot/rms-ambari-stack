@@ -36,7 +36,7 @@ class Master(Script):
                                     redownload_files=("SNAPSHOT" in format("{app_package_bundle}"))),
              mode=0644, owner=format('{app_user}'))
 
-        Execute(format('tar -xvf /home/{app_user}/{app_package_bundle}'), user=format('{app_user}'))
+        Execute(format('tar -xzvf /home/{app_user}/{app_package_bundle}'), user=format('{app_user}'))
 
         Execute(format('ln -sfv /home/{app_user}/{app_name}/{app_name}.jar /etc/init.d/{app_name}'))
 
