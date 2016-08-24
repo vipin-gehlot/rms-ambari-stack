@@ -47,4 +47,12 @@ task copyAmbariWebArtifacts(type: Copy) {
 task copyArtifacts(dependsOn: ['copyAmbariStackArtifacts','copyAmbariWebArtifacts'] ){
 }
 
+task bundleAmbariStack(dependsOn: 'copyArtifacts', type: Tar) {
+    from { "$buildDir/$projectName" }
+    baseName = archiveName
+    destinationDir = file("$buildDir")
+    extension = 'gz'
+    compression = Compression.GZIP
+}
+
 distTar.dependsOn copyArtifacts
