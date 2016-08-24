@@ -1,4 +1,3 @@
-apply plugin: 'distribution'
 apply from: 'base.gradle'
 
 def getBuildId() {
@@ -8,14 +7,14 @@ def getVersion() {
     return System.getProperty("VERSION")
 }
 
-def getArchiveName() {
+def getArchiveBundleName() {
     return "$projectName" + "_" + "$buildVersion"
 }
 
 ext {
     projectName = 'rms-ambari-stack'
     buildVersion = getVersion() + '.'  + getBuildId()
-    archiveName = getArchiveName()
+    archiveBundleName = getArchiveBundleName()
 
     ambariStackFolder = "$buildDir/$projectName/var/lib/ambari-server/resources"
     ambariWebFolder = "$buildDir/$projectName/usr/lib/ambari-server/"
@@ -23,16 +22,6 @@ ext {
  //   snapshotRepoName = 'snapshot'
  //   releaseRepoName = 'release'
 }
-
-distributions {
-    main {
-        baseName = archiveName
-        contents {
-            from { "$buildDir/$projectName" }
-        }
-    }
-}
-
 
 task copyAmbariStackArtifacts(type: Copy) {
     from("src/main/resources/ambari-stack")
@@ -49,10 +38,9 @@ task copyArtifacts(dependsOn: ['copyAmbariStackArtifacts','copyAmbariWebArtifact
 
 task bundleAmbariStack(dependsOn: 'copyArtifacts', type: Tar) {
     from { "$buildDir/$projectName" }
-    baseName = archiveName
+    baseName = getArchiveBundleName()
     destinationDir = file("$buildDir")
-    extension = 'gz'
+    extension = 'tar.gz'
     compression = Compression.GZIP
 }
 
-distTar.dependsOn copyArtifacts
