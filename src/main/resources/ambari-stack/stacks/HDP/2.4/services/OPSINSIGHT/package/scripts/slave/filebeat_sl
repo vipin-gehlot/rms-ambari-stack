@@ -1,0 +1,43 @@
+from resource_management import *
+from resource_management.core.exceptions import ComponentIsNotRunning
+from resource_management.libraries.resources.properties_file import PropertiesFile
+import glob
+import os
+
+
+class Master(Script):
+    def install(self, env):
+        import params
+        env.set_params(params)
+        self.install_packages(env)
+        # TODO Cleanup before fresh install
+        File(format("/home/{filebeat_app_user}/{filebeat_app_package_bundle}"),
+             content=DownloadSource(
+                 format(format("{filebeat_app_repository_url}/{filebeat_app_package_bundle}")),
+                 redownload_files=("SNAPSHOT" in format("{filebeat_app_package_bundle}"))),
+             mode=0644, owner=format('{filebeat_app_user}'))
+
+        Execute(format('rpm -ivh --replacepkgs /home/{filebeat_app_user}/{filebeat_app_package_bundle}'))
+
+        Execute(format('chown -R {filebeat_app_user}:{filebeat_app_group} /etc/{filebeat_app_name}'))
+
+    def stop(self, env):
+        Execute('service filebeat stop')
+
+    def start(self, env):
+        self.configure(env)
+        Execute('service filebeat start')
+
+    def status(self, env):
+        Execute('service filebeat status')
+
+    def configure(self, env):
+        import params
+        env.set_params(params)
+
+        File('/etc/filebeat/filebeat.yml', content=InlineTemplate(
+            format(format(params.config['configurations']['filebeat']['filebeat_yml']))), mode=0644, owner=format('{filebeat_app_user}'), group=format('{filebeat_app_group}'))
+
+
+if __name__ == "__main__":
+    Master().execute()

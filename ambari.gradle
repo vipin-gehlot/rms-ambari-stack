@@ -1,0 +1,50 @@
+apply plugin: 'distribution'
+apply from: 'base.gradle'
+
+def getBuildId() {
+    return System.getProperty("BUILD_ID")
+}
+def getVersion() {
+    return System.getProperty("VERSION")
+}
+
+def getArchiveName() {
+    return "$projectName" + "_" + "$buildVersion"
+}
+
+ext {
+    projectName = 'rms-ambari-stack'
+    buildVersion = getVersion() + '.'  + getBuildId()
+    archiveName = getArchiveName()
+
+    ambariStackFolder = "$buildDir/$projectName/var/lib/ambari-server/resources"
+    ambariWebFolder = "$buildDir/$projectName/usr/lib/ambari-server/"
+
+ //   snapshotRepoName = 'snapshot'
+ //   releaseRepoName = 'release'
+}
+
+distributions {
+    main {
+        baseName = archiveName
+        contents {
+            from { "$buildDir/$projectName" }
+        }
+    }
+}
+
+
+task copyAmbariStackArtifacts(type: Copy) {
+    from("src/main/resources/ambari-stack")
+    into "$ambariStackFolder"
+}
+
+task copyAmbariWebArtifacts(type: Copy) {
+    from("src/main/resources/ambari-web")
+    into "$ambariWebFolder"
+}
+
+task copyArtifacts(dependsOn: ['copyAmbariStackArtifacts','copyAmbariWebArtifacts'] ){
+}
+
+distTar.dependsOn copyArtifacts

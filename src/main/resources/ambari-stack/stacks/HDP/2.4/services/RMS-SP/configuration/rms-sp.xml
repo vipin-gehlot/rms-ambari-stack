@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>server.port</name>
+        <value>8081</value>
+        <description></description>
+    </property>
+    <property>
+        <name>spring.datasource.url</name>
+        <value></value>
+        <description>Specify the database url e.g. jdbc:mysql://localhost:3306/mpsauthdb</description>
+    </property>
+    <property>
+        <name>spring.datasource.user</name>
+        <value>user</value>
+        <description>Database User name </description>
+    </property>
+    <property>
+        <name>spring.datasource.password</name>
+        <value></value>
+        <description>Database password</description>
+        <property-type>PASSWORD</property-type>
+    </property>
+    <property>
+        <name>spring.datasource.driver-class-name</name>
+        <value>com.mysql.jdbc.Driver</value>
+        <description>JDBC driver class name</description>
+    </property>
+
+</configuration>	

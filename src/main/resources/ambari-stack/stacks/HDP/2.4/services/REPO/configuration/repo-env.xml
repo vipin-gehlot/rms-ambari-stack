@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>external_repository_url</name>
+        <value></value>
+        <description>External Repository URL to download new Ambari stack version artifacts</description>
+    </property>
+    <property>
+        <name>external_repository_packages</name>
+        <value></value>
+        <description>Comma separated Application Packaged Directory Names</description>
+    </property>
+    <property>
+        <name>app_package</name>
+        <value></value>
+        <description>Application Packaged Directory Name without extention</description>
+    </property>
+    <property>
+        <name>repository_port</name>
+        <value>8888</value>
+        <description>Repository service port</description>
+    </property>
+</configuration>

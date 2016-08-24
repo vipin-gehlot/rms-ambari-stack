@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>stack_package</name>
+        <value></value>
+        <description>Application Package Name [e.g rms-ambari-stack-x.x.x.tar]</description>
+    </property>
+</configuration>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>BUILD</name>
+            <comment>Build Service, With Jenkins build your code and distribute internally</comment>
+            <displayName>Build</displayName>
+            <version>1.0.0</version>
+            <components>
+                <component>
+                    <name>JENKINS_MASTER</name>
+                    <displayName>Jenkins Master</displayName>
+                    <category>MASTER</category>
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>1200</timeout>
+                    </commandScript>
+                </component>
+            </components>
+            <osSpecifics>
+                <osSpecific>
+                    <osFamily>any</osFamily>
+                    <packages>
+                        <package>
+                            <name>jenkins</name>
+                        </package>
+                        <package>
+                            <name>git</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+            </osSpecifics>
+        </service>
+    </services>
+</metainfo>
+

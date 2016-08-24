@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>app_user</name>
+        <value>kibana</value>
+        <property-type>USER</property-type>
+        <description>Operating Systems user name to run this service as</description>
+    </property>
+    <property>
+        <name>app_group</name>
+        <value>kibana</value>
+        <property-type>GROUP</property-type>
+        <description>Operating Systems userGroup name to run this service as</description>
+    </property>
+    <property>
+        <name>app_name</name>
+        <value>kibana</value>
+        <description>Application Name</description>
+    </property>
+    <property>
+        <name>app_repository_url</name>
+        <value>http://{config.clusterHostInfo.ambari_server_host[0]}:{config.configurations.repo-env.repository_port}/repo/</value>
+        <description>Application Repository URL</description>
+    </property>
+    <property>
+        <name>app_package</name>
+        <value>kibana-5.0.0-alpha5-x86_64</value>
+        <description>Application Packaged Directory Name</description>
+    </property>
+    <property>
+        <name>app_package_bundle_extension</name>
+        <value>.rpm</value>
+        <description>Application Packaged bundle eg. '.tar.gz'</description>
+    </property>
+    <property>
+        <name>app_plugins</name>
+        <value>x-pack-5.0.0-alpha5.zip</value>
+        <description>Comma separated Application Plugins names</description>
+    </property>
+</configuration>

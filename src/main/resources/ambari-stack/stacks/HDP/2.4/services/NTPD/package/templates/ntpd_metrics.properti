@@ -1,0 +1,3 @@
+METRIC_COLLECTOR_HOST={{metric_collector_host}}
+METRIC_COLLECTOR_PORT={{metric_collector_port}}
+HOSTNAME={{hostname}}

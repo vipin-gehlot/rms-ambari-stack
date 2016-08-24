@@ -1,0 +1,58 @@
+from resource_management import *
+from resource_management.core.exceptions import ComponentIsNotRunning
+from resource_management.libraries.resources.properties_file import PropertiesFile
+import glob
+import os
+
+
+class Master(Script):
+    def install(self, env):
+        import params
+        env.set_params(params)
+        self.install_packages(env)
+        # TODO Cleanup before fresh install
+        File(format("/home/{elasticsearch_app_user}/{elasticsearch_app_package_bundle}"),
+             content=DownloadSource(
+                 format(format("{elasticsearch_app_repository_url}/{elasticsearch_app_package_bundle}")),
+                 redownload_files=("SNAPSHOT" in format("{elasticsearch_app_package_bundle}"))),
+             mode=0644, owner=format('{elasticsearch_app_user}'))
+
+        Execute(format('rpm -ivh --replacepkgs /home/{elasticsearch_app_user}/{elasticsearch_app_package_bundle}'))
+
+        Execute(format('chown -R {elasticsearch_app_user}:{elasticsearch_app_group} /etc/{elasticsearch_app_name}'))
+
+        app_plugins_list=format("{elasticsearch_app_plugins}").split(",")
+        for plugin in app_plugins_list:
+            File("/tmp/"+plugin,
+                 content=DownloadSource(format(format("{elasticsearch_app_repository_url}/"))+plugin,
+                                        redownload_files=True),mode=0644)
+
+            Execute(format('/usr/share/{elasticsearch_app_name}/bin/elasticsearch-plugin install --batch file:///tmp/'+plugin))
+            #Plugin installation will fail if it's already installed
+            #To remove use '/usr/share/elasticsearch/bin/elasticsearch-plugin remove x-pack'
+        self.configure(env)
+
+    def stop(self, env):
+        Execute('service elasticsearch stop')
+
+    def start(self, env):
+        self.configure(env)
+        Execute('service elasticsearch start')
+
+    def status(self, env):
+        Execute('service elasticsearch status')
+
+    def configure(self, env):
+        import params
+        env.set_params(params)
+
+        File('/etc/elasticsearch/elasticsearch.yml', content=InlineTemplate(
+            format(format(params.config['configurations']['elasticsearch']['elasticsearch_yml']))), mode=0644, owner=format('{elasticsearch_app_user}'), group=format('{elasticsearch_app_group}'))
+
+        for t in params.elasticsearch_app_configuration_templates:
+            File(format('/etc/sysconfig/{t.to}'), content=Template(format("{t.from}")),
+                 mode=0755, owner=format('{elasticsearch_app_user}'), group=format('{elasticsearch_app_group}'))
+
+
+if __name__ == "__main__":
+    Master().execute()

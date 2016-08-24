@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>app_user</name>
+        <value>drsapp</value>
+        <property-type>USER</property-type>
+        <description>Operating Systems user name to run this service as</description>
+    </property>
+    <property>
+        <name>app_group</name>
+        <value>drsapp</value>
+        <property-type>GROUP</property-type>
+        <description>Operating Systems userGroup name to run this service as</description>
+    </property>
+    <property>
+        <name>app_name</name>
+        <value>rms-sp</value>
+        <description>Application Name</description>
+    </property>
+	    <property>
+        <name>app_repository_url</name>
+        <value>http://{config.clusterHostInfo.ambari_server_host[0]}:{config.configurations.repo-env.repository_port}/repo/</value>
+        <description>Application Repository URL</description>
+    </property>
+    <property>
+        <name>app_package</name>
+        <value>{config.configurations.repo-env.app_package}</value>
+        <description>Application Packaged Directory Name</description>
+    </property>
+    <property>
+        <name>app_package_bundle_extension</name>
+        <value>.tar.gz</value>
+        <description>Application Packaged bundle e.g. '.tar.gz'</description>
+    </property>
+    <property>
+        <name>java_opts</name>
+        <value>-Dloader.path=conf</value>
+    </property>
+</configuration>

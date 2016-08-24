@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>my.cnf_content</name>
+        <value>[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+
+# required by RMS
+lower_case_table_names=1
+
+# recommended by DRS,RMS
+transaction-isolation=READ-COMMITTED
+
+# to have good memory usage on dedicated machine
+innodb_buffer_pool_size=10G
+innodb_log_file_size=536870912
+
+# allow to store huge blobs
+max_allowed_packet=500M
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid</value>
+        <value-attributes>
+            <type>multiLine</type>
+        </value-attributes>
+        <description>Contents of /etc/my.conf</description>
+    </property>
+</configuration>
+
+

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>MYSQL</name>
+            <displayName>MySQL</displayName>
+            <comment>The Disclosure Data Storage , Percona 5.6 MySql service for DRAS system</comment>
+            <version>1.0</version>
+            <components>
+                <component>
+                    <name>MYSQL_MASTER</name>
+                    <displayName>MYSQL Master</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1</cardinality>
+                    <!--timelineAppid>MYSQL</timelineAppid-->
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+            </components>
+            <osSpecifics>
+                <osSpecific>
+                    <osFamily>redhat6</osFamily>
+                    <packages>
+                        <package>
+                            <name>Percona-Server-server-56</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+            </osSpecifics>
+            <!-- names for config files (under configuration dir) -->
+            <configuration-dependencies>
+                <config-type>mysql-env</config-type>
+                <config-type>mysql.cnf</config-type>
+            </configuration-dependencies>
+            <restartRequiredAfterChange>true</restartRequiredAfterChange>
+        </service>
+    </services>
+</metainfo>

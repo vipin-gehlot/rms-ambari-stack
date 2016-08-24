@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>RMS-SP</name>
+            <displayName>RMS-SP</displayName>
+            <version>1.0.0</version>
+            <comment>The Request Management System</comment>
+            <components>
+                <component>
+                    <name>RMS_MASTER</name>
+                    <displayName>RMS Server</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1+</cardinality>
+                    <!--timelineAppid>RMS-SP</timelineAppid-->
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+            </components>
+            <!--osSpecifics>
+                <osSpecific>
+                    <osFamily>redhat6</osFamily>
+                    <packages>
+                        <package>
+                            <name>@TODO if rms has yum package</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+            </osSpecifics-->
+	            <configuration-dependencies>
+                <config-type>rms-sp</config-type>
+                <config-type>rms-sp-env</config-type>
+                <config-type>repo-env</config-type>
+            </configuration-dependencies>
+            <restartRequiredAfterChange>true</restartRequiredAfterChange>
+
+        </service>
+    </services>
+</metainfo>

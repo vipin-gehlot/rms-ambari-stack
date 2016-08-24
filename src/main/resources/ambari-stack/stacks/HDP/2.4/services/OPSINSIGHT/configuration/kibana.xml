@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>http_port</name>
+        <value>5601</value>
+        <description>
+            Port on which kibana listens
+        </description>
+    </property>
+    <property>
+        <name>kibana_yml</name>
+        <value>server.port: {config.configurations.kibana.http_port}
+
+server.host: {{hostname}}
+
+server.name: "ops-insight"
+
+elasticsearch.url: "http://{config.clusterHostInfo.elastic_search_hosts[0]}:{config.configurations.elasticsearch.http_port}"
+
+
+xpack.security.enabled: false
+xpack.monitoring.enabled: false
+xpack.graph.enabled: false
+
+xpack.reporting.enabled: false
+        </value>
+        <value-attributes>
+            <type>multiLine</type>
+        </value-attributes>
+        <description>Contents of etc/kibana/kibana.yml</description>
+    </property>
+</configuration>

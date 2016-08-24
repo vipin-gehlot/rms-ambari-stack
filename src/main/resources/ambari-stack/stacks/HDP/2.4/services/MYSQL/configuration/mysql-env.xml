@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>app_user</name>
+        <value>mysql</value>
+        <property-type>USER</property-type>
+        <description>Operating Systems user name to run this service as</description>
+    </property>
+    <property>
+        <name>app_group</name>
+        <value>mysql</value>
+        <property-type>GROUP</property-type>
+        <description>Operating Systems userGroup name to run this service as</description>
+    </property>
+    <property>
+        <name>mysql_user_creation</name>
+        <value>CREATE USER 'drs'@'%' IDENTIFIED BY 'drs';
+GRANT ALL PRIVILEGES ON *.* TO 'drs'@'%';
+CREATE USER 'drs'@'localhost' IDENTIFIED BY 'drs';
+GRANT ALL PRIVILEGES ON *.* TO 'drs'@'localhost';
+FLUSH PRIVILEGES;</value>
+        <value-attributes>
+            <type>multiLine</type>
+        </value-attributes>
+        <description>Contents of /tmp/mysql_user_creation</description>
+    </property>
+    <property>
+        <name>mysql_db_creation</name>
+        <value>CREATE DATABASE IF NOT EXISTS drs CHARACTER SET = 'utf8';</value>
+        <value-attributes>
+            <type>multiLine</type>
+        </value-attributes>
+        <description>Contents of /tmp/mysql_db_creation</description>
+    </property>
+</configuration>

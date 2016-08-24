@@ -1,0 +1,11 @@
+{
+  "_comment" : "Record format:",
+  "_comment" : "blockedRole-blockedCommand: [blockerRole1-blockerCommand1, blockerRole2-blockerCommand2, ...]",
+  "general_deps" : {
+    "_comment" : "dependencies for all cases",
+    "NTPD_FOLLOWER-RESTART":["NTPD_LEADER-RESTART"],
+    "HTTPD-START":["NTPD_LEADER-START"],
+    "AMBARI_EXTENSIONS_PROVIDER-START":["NTPD_LEADER-START"],
+    "MYSQL_MASTER-START":["HTTPD-START"]
+  }
+}

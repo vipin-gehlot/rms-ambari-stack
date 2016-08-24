@@ -1,0 +1,57 @@
+<html>
+<body>
+<h3 style="text-align:center;">Welcome to DRS</h3>
+
+<h4>Operational View</h4>
+<a href="http://{{config['clusterHostInfo']['ambari_server_host'] | join(',')}}:8080">DRS Homepage</a>
+
+<h4>Developer View</h4>
+
+DRS services:<br>
+&nbsp<dl>
+  <dt>Ingestion</dt>
+  <dd>- A distributed service for collecting, aggregating, and moving large amounts of streaming data into HDFS</dd>
+  <dt>Indexer</dt>
+  <dd>- The data indexing service for DRAS system, Requires HDFS , MRv2 and DRILL</dd>
+  <dt>Disclosure</dt>
+  <dd>- The data disclosure service for DRAS system</dd>
+  {% if 'jenkins_master_hosts' in config['clusterHostInfo'] %}
+  <dt>Build</dt>
+  <dd>- Jenkins build service<br>
+  <a href="http://{{config['clusterHostInfo']['jenkins_master_hosts'] | join(',')}}:{{config['configurations']['jenkins']['JENKINS_PORT']}}">Jenkins master</a>
+  </dd>
+  {% endif %}
+</dl>
+<br><br>
+
+Underline services used by DRS:<br>
+<dl>
+  <dt>Flume</dt>
+  <dd>- </dd>
+  <dt>kafka</dt>
+  <dd>- </dd>
+  <dt>HDFS</dt>
+  <dd>- </dd>
+  <dt>Zookeeper</dt>
+  <dd>- </dd>
+  <dt>YARN</dt>
+  <dd>- </dd>
+  <dt>Drill</dt>
+  <dd>-Links to Drillbits<ol type="1">
+  {% if 'drillbit_hosts' in config['clusterHostInfo'] %}
+       {% for drillHost in config['clusterHostInfo']['drillbit_hosts'] %}
+         <li><a href="http://{{drillHost}}:8047">Drillbit</a></li>
+       {% endfor %}
+       {% endif %}
+       </ol> </dd>
+  <dt>HornetQ</dt>
+  <dd>- </dd>
+  <dt>MongoDB</dt>
+  <dd>- </dd>
+</dl>
+<br><br>
+
+<h4>Business View</h4>
+
+</body>
+</html>

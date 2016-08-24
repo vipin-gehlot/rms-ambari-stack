@@ -1,0 +1,6 @@
+apply from : "base.gradle"
+apply from : "ambari.gradle"
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
